@@ -18,8 +18,8 @@ export const get = query({
 
     const member = await ctx.db
       .query("members")
-      .withIndex("by_user_id_workspace_id", (q) => 
-        q.eq("userId", userId).eq("workspaceId", args.workspaceId)
+      .withIndex("by_workspace_id_user_id", (q) => 
+        q.eq("workspaceId", args.workspaceId).eq("userId", userId)
       ).unique();
 
     if (!member) {
@@ -60,8 +60,8 @@ export const curr = query({
 
     const member = await ctx.db
       .query("members")
-      .withIndex("by_user_id_workspace_id", (q) => 
-        q.eq("userId", userId).eq("workspaceId", args.workspaceId)
+      .withIndex("by_workspace_id_user_id", (q) => 
+        q.eq("workspaceId", args.workspaceId).eq("userId", userId)
       ).unique();
 
     if (!member) {

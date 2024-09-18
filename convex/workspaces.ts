@@ -54,8 +54,8 @@ export const getInfoById = query({
 
     const member = await ctx.db
       .query("members")
-      .withIndex("by_user_id_workspace_id", (q) => 
-        q.eq("userId", userId).eq("workspaceId", args.id)
+      .withIndex("by_workspace_id_user_id", (q) => 
+        q.eq("workspaceId", args.id).eq("userId", userId)
       ).unique();
 
     const workspace = await ctx.db.get(args.id);
@@ -80,8 +80,8 @@ export const getById = query({
 
     const member = await ctx.db
       .query("members")
-      .withIndex("by_user_id_workspace_id", (q) => 
-        q.eq("userId", userId).eq("workspaceId", args.id)
+      .withIndex("by_workspace_id_user_id", (q) => 
+        q.eq("workspaceId", args.id).eq("userId", userId)
       ).unique();
 
     if (!member) {
@@ -139,8 +139,8 @@ export const update = mutation({
 
     const member = await ctx.db
       .query("members")
-      .withIndex("by_user_id_workspace_id", (q) => 
-        q.eq("userId", userId).eq("workspaceId", args.id)
+      .withIndex("by_workspace_id_user_id", (q) => 
+        q.eq("workspaceId", args.id).eq("userId", userId)
       ).unique();
 
     if (!member || member.role !== "admin") {
@@ -168,8 +168,8 @@ export const remove = mutation({
 
     const member = await ctx.db
       .query("members")
-      .withIndex("by_user_id_workspace_id", (q) => 
-        q.eq("userId", userId).eq("workspaceId", args.id)
+      .withIndex("by_workspace_id_user_id", (q) => 
+        q.eq("workspaceId", args.id).eq("userId", userId)
       ).unique();
 
     if (!member || member.role !== "admin") {
@@ -216,8 +216,8 @@ export const join = mutation({
 
     const existingMember = await ctx.db
       .query("members")
-      .withIndex("by_user_id_workspace_id", (q) => 
-        q.eq("userId", userId).eq("workspaceId", args.workspaceId)
+      .withIndex("by_workspace_id_user_id", (q) => 
+        q.eq("workspaceId", args.workspaceId).eq("userId", userId)
       ).unique();
 
     if (existingMember) {
@@ -247,8 +247,8 @@ export const newJoinCode = mutation({
 
     const member = await ctx.db
       .query("members")
-      .withIndex("by_user_id_workspace_id", (q) => 
-        q.eq("userId", userId).eq("workspaceId", args.id)
+      .withIndex("by_workspace_id_user_id", (q) => 
+        q.eq("workspaceId", args.id).eq("userId", userId)
       ).unique();
 
     if (!member || member.role !== "admin") {
